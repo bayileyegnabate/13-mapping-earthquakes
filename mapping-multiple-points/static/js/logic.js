@@ -36,7 +36,7 @@ L.polyline(line, {
 
 // 
 L.polyline(newRoute, {
-    color: '#ffffa3',
+    color: 'rgb(129, 89, 221)',
     dashArray: '7, 7'
 }).addTo(map);
 
