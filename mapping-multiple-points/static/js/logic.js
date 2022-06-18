@@ -10,54 +10,36 @@ let map = L.map('mapid', {
 	zoom: 4
 });
 
-// add a marker to the map for Los Angeles, California
-// let marker = L.marker([34.0522, -118.2437]).addTo(map);
+// coordinates for each point
+let line = [
+    // LA to SFO
+    [33.9416, -118.4085],
+    [37.6213, -122.3790],
+    // SLC to SEA
+    [40.7899, -111.9791],
+    [47.4502, -122.3088]
+];
 
-// loop through the cities array and create one marker for reach city
-// let markers = cityData.forEach(function(city) {
-//     L.marker(city.location)
-//     .bindPopup(`<h2>${city.city}, ${city.state}</h2><hr><h3>Population ${city.population.toLocaleString()}</h3>`)
-//     .addTo(map);
-// });
+let newRoute = [
+    [36.167256, -115.148516],
+    [33.9416, -118.4085],
+    [30.1167, -97.4019],
+    [43.4038, -79.3750],
+    [40.3840, -73.4672],
+    [41.974162, -87.907321]
+]
 
-// change the marker for reach city to a circle that has a radius equivalent to the city's population\
-// let markers = cityData.forEach(function(city) {
-//     L.circleMarker(city.location, {
-//         radius: city.population * 0.00001,
-//         color: 'purple',
-//         fillColor: 'lightgreen'
-//     })
-//     .bindPopup(`<h2>${city.city}, ${city.state}</h2><hr><h3>Population ${city.population.toLocaleString()}</h3>`)
-//     .addTo(map);
-// });
+// create a polyline using the line coordiantes
+L.polyline(line, {
+    color: 'red'
+}).addTo(map);
 
-// create an orange circle popup marker for each city, with a lineweight of 4, a radius where the population number is decreased by 200,000
+// 
+L.polyline(newRoute, {
+    color: '#ffffa3',
+    dashArray: '7, 7'
+}).addTo(map);
 
-let markers = cityData.forEach(function(city) {
-    L.circleMarker(city.location, {
-        radius: city.population / 200000,
-        color: 'orange',
-        lineweight: 4,
-        fillColor: ''
-    })
-    .bindPopup(`<h2>${city.city}, ${city.state}</h2><hr><h3>Population ${city.population.toLocaleString()}</h3>`)
-    .addTo(map);
-});
-
-// markers.forEach((marker) => marker.on('mouseover', (e) => marker.closePopup));
- 
- // add a circle marker to the map for LA, Ca
- // L.circle([34.0522, -118.2437], {
- //    radius: 500,
- //    color: 'red'
- // }).addTo(map);
-
-// create a light-yellow circle with black lines indicating a 300-meter radius
-L.circle([34.0522, -118.2437], {
-    radius: 300,
-    color: 'black',
-    fillColor: 'yellow'
- }).addTo(map);
 
 
 // create the tile layer that will be the background of the map
