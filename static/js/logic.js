@@ -20,29 +20,38 @@ let darklayer = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v10/ti
 
 // create a base layer tha holds both maps
 let baseMaps = {
-    // Street: streets,
+    Street: streets,
     // Dark: darklayer
 };
 
-let mapboxStyles = [
-    'streets-v11',
-    'outdoors-v11',
-    'light-v10', 
-    'dark-v10',
-    'satellite-v9',
-    'satellite-streets-v11',
-    'navigation-day-v1',
-    'navigation-night-v1'    
-    ];
+let mapboxStyles = {
+    street: 'streets-v11',
+    outdoor: 'outdoors-v11',
+    light: 'light-v10', 
+    dark: 'dark-v10',
+    satellite: 'satellite-v9',
+    sateStreets: 'satellite-streets-v11',
+    navigDay: 'navigation-day-v1',
+    navigNight: 'navigation-night-v1'
+}
 
-mapboxStyles.forEach((style) => baseMaps[style] = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+Object.keys(mapboxStyles).forEach((style) => baseMaps[style] = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
-    id: `mapbox/${style}`,
+    id: `mapbox/${mapboxStyles[style]}`,
     // tileSize: 512,
     // zoomOffset: -1,
     accessToken: API_KEY
-}))
+}));
+
+// mapboxStyles.forEach((style) => baseMaps[style] = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+//     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+//     maxZoom: 18,
+//     id: `mapbox/${style}`,
+//     // tileSize: 512,
+//     // zoomOffset: -1,
+//     accessToken: API_KEY
+// }))
 
 // create the map object with center, zoom level and default layer
 let map = L.map('mapid', {
