@@ -11,8 +11,8 @@ let torontoNeighborhoods = "https://raw.githubusercontent.com/bayileyegnabate/13
 
 // create the map object with center, zoom level and default layer
 let map = L.map('mapid', {
-    center: [44.0, -80.0],
-    zoom: 2,
+    center: [43.7, -79.3],
+    zoom: 10,
 });
 
 // create the tile layer that will be the background of the map
@@ -51,8 +51,8 @@ Object.keys(mapboxStyles).forEach((style) => baseMaps[style] = L.tileLayer('http
 L.control.layers(baseMaps).addTo(map);
 
 let lineStyle = {
-    color: '#ffffa1',
-    weight: 2
+    color: '#5988F3',
+    weight: 1
 }
 
 // use d3 to retrieve the json data
@@ -63,7 +63,7 @@ d3.json(torontoNeighborhoods).then(function(data) {
         style: lineStyle,
         onEachFeature: function(feature, layer) {
             console.log(layer);
-            layer.bindPopup(`Airline: <span class='popup-bold'>${feature.properties.AREA_NAME}</span><hr>Destination: <span class='popup-bold'>${feature.properties.dst}</span>`);
+            layer.bindPopup(`Neighborhood: <span class='popup-bold'>${feature.properties.AREA_NAME}</span>`);
         }
     })
     .addTo(map);
