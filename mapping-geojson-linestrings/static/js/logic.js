@@ -2,30 +2,49 @@
 // create the map object with the center at the SF airport 
 let map = L.map('mapid', {
     center: [
-        37.5, -122.5
+        30, 30
     ],
-    zoom: 10
+    zoom: 2
+});
+
+// Accessing the airport GeoJSON URL
+// let airportData = "https://github.com/bayileyegnabate/13-mapping-earthquakes/blob/main/majorAirports.json";
+// let airportData = "majorAirports.json";
+
+// Add GeoJSON data.
+d3.json("majorAirports.json").then(function(data) {
+    console.log(data);
+    // create a geojsonlayer with the retrieved data
+    L.geoJSON(data, {
+        onEachFeature: function(feature, layer) {
+            console.log(layer);
+            let airportId = 3484;
+            if (parseInt(feature.properties.id) == airportId) {
+                layer.bindPopup(`Airport name: <b>${feature.properties.name}`);
+            }
+        }
+    }).addTo(map);
 });
 
 // Add GeoJSON data.
-let sanFranAirport =
-{"type":"FeatureCollection","features":[{
-    "type":"Feature",
-    "properties":{
-        "id":"3469",
-        "name":"San Francisco International Airport",
-        "city":"San Francisco",
-        "country":"United States",
-        "faa":"SFO",
-        "icao":"KSFO",
-        "alt":"13",
-        "tz-offset":"-8",
-        "dst":"A",
-        "tz":"America/Los_Angeles"},
-        "geometry":{
-            "type":"Point",
-            "coordinates":[-122.375,37.61899948120117]}}
-]};
+// let sanFranAirport =
+// {"type":"FeatureCollection","features":[{
+//     "type":"Feature",
+//     "properties":{
+//         "id":"3469",
+//         "name":"San Francisco International Airport",
+//         "city":"San Francisco",
+//         "country":"United States",
+//         "faa":"SFO",
+//         "icao":"KSFO",
+//         "alt":"13",
+//         "tz-offset":"-8",
+//         "dst":"A",
+//         "tz":"America/Los_Angeles"},
+//         "geometry":{
+//             "type":"Point",
+//             "coordinates":[-122.375,37.61899948120117]}}
+// ]};
 
 // 
 // GeoJSON objects are added to the map through a GeoJSON layer, L.geoJSON()
@@ -45,12 +64,12 @@ let sanFranAirport =
 // The onEachFeature Function
 // ==========================
 // use the onEachFeature callback function to add a popup marker for each feature and add data from the properties of the JavaScript object
-L.geoJSON(sanFranAirport, {
-    onEachFeature: function(feature, layer) {
-        console.log(layer);
-        layer.bindPopup(`Airport code: <b>${feature.properties.faa}</b><hr>Airport name: <b>${feature.properties.name}</b>`);
-    }
-}).addTo(map);
+// L.geoJSON(sanFranAirport, {
+//     onEachFeature: function(feature, layer) {
+//         console.log(layer);
+//         layer.bindPopup(`Airport code: <b>${feature.properties.faa}</b><hr>Airport name: <b>${feature.properties.name}</b>`);
+//     }
+// }).addTo(map);
 
 
 // add a circle marker
