@@ -4,6 +4,9 @@ let airportData = "https://raw.githubusercontent.com/bayileyegnabate/13-mapping-
 // Accessing the Toronto airline GeoJSON URL
 let torontoData = "https://raw.githubusercontent.com/bayileyegnabate/13-mapping-earthquakes/main/torontoRoutes.json";
 
+// Accessing the Toronto neighborhoods GeoJSON URL
+let torontoNeighborhoods = "https://raw.githubusercontent.com/bayileyegnabate/13-mapping-earthquakes/main/torontoNeighborhoods.json";
+
 
 
 // create the map object with center, zoom level and default layer
@@ -16,7 +19,7 @@ let map = L.map('mapid', {
 let streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
-    id: 'mapbox/light-v10',
+    id: 'mapbox/streets-v11',
     accessToken: API_KEY
 }).addTo(map);
 
@@ -29,9 +32,9 @@ let mapboxStyles = {
     light: 'light-v10', 
     dark: 'dark-v10',
     satellite: 'satellite-v9',
-    sateStreets: 'satellite-streets-v11',
-    navigDay: 'navigation-day-v1',
-    navigNight: 'navigation-night-v1'
+    satelliteStreets: 'satellite-streets-v11',
+    navigationDay: 'navigation-day-v1',
+    navigationNight: 'navigation-night-v1'
 }
 
 // create the different layer styles
@@ -53,14 +56,14 @@ let lineStyle = {
 }
 
 // use d3 to retrieve the json data
-d3.json(torontoData).then(function(data) {
+d3.json(torontoNeighborhoods).then(function(data) {
     console.log(data);
     // create a GeoJSON layer with the retrieved data and add popup marker
     L.geoJSON(data, {
         style: lineStyle,
         onEachFeature: function(feature, layer) {
             console.log(layer);
-            layer.bindPopup(`Airline: <span class='popup-bold'>${feature.properties.airline}</span><hr>Destination: <span class='popup-bold'>${feature.properties.dst}</span>`);
+            layer.bindPopup(`Airline: <span class='popup-bold'>${feature.properties.AREA_NAME}</span><hr>Destination: <span class='popup-bold'>${feature.properties.dst}</span>`);
         }
     })
     .addTo(map);
