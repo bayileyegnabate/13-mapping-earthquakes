@@ -8,7 +8,7 @@ let torontoData = "https://raw.githubusercontent.com/bayileyegnabate/13-mapping-
 
 // create the map object with center, zoom level and default layer
 let map = L.map('mapid', {
-    center: [44, -80],
+    center: [44.0, -80.0],
     zoom: 2,
 });
 
@@ -47,14 +47,21 @@ Object.keys(mapboxStyles).forEach((style) => baseMaps[style] = L.tileLayer('http
 // pass the map layers to layers control abd add the layers control to map
 L.control.layers(baseMaps).addTo(map);
 
+let lineStyle = {
+    color: '#ffffa1',
+    weight: 2
+}
+
 // use d3 to retrieve the json data
 d3.json(torontoData).then(function(data) {
     console.log(data);
     // create a GeoJSON layer with the retrieved data and add popup marker
     L.geoJSON(data, {
+        style: lineStyle,
         onEachFeature: function(feature, layer) {
             console.log(layer);
-            layer.bindPopup(`Airport code: <span class='popup-bold'>${feature.properties.dst}</span><hr>Airport name: <span class='popup-bold'>${feature.properties.coordinates}</span>`);
+            layer.bindPopup(`Airline: <span class='popup-bold'>${feature.properties.airline}</span><hr>Destination: <span class='popup-bold'>${feature.properties.dst}</span>`);
         }
-    }).addTo(map);
+    })
+    .addTo(map);
 });
