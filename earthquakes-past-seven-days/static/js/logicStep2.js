@@ -60,13 +60,41 @@ let lineStyle = {
 // use d3 to retrieve the json data
 d3.json(earthquakeData).then(function(data) {
     console.log(data);
+
+    // styles
+        function styleInfo(feature) {
+            return {
+                opacity: 1,
+                fillOpacity: 1,
+                fillColor: '#ffae42',
+                color: '#000',
+                radius: getRadius(),
+                stroke: true,
+                weight: 0.512
+            }
+        }
+
+    // earthquakes with a magnitude of 0 will be plotted with radius of 1
+    function getRadius(magnitude) {
+        if (magnitude === 0) {
+            return 1;
+        }
+        return magnitude * 4;
+    }
+
     // create a GeoJSON layer with the retrieved data and add popup marker
     L.geoJSON(data, {
-        style: lineStyle,
-        onEachFeature: function(feature, layer) {
-            console.log(feature.properties.place);
-            layer.bindPopup(`Earthquake magnitude: <span class='popup-bold'>${feature.properties.mag}</span>`);
-        }
-    })
-    .addTo(map);
+        // style: lineStyle,
+        // turn each feature into a circleMarker on the map
+        pointToLayer: function(feature, latlng) {
+            console.log(data);
+            return L.circleMarker(latlng);
+        },
+        // set the style for each circleMarker 
+        style: styleInfo
+    }).addTo(map);
 });
+
+
+
+
