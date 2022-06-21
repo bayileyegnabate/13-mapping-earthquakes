@@ -1,0 +1,47 @@
+html,
+body,
+#mapid {
+	width:  100%;
+	height:  100%;
+	margin:  0;
+	padding:  0;
+}
+body {
+	font-family: 'Open Sans', sans-serif;
+	line-height: 1.7;
+	color: #333;
+}
+h1 {
+	font-size: 2.2rem;
+	color: darkorange;
+	padding-left: .7rem;
+}
+h2 {
+	color:  red;
+}
+.popup-bold {
+	color:  purple;
+	font-weight: bold;
+}
+
+.clr-blue {
+	color:  #4475F2;
+	font-weight: bold;
+}
+
+.legend {
+	background-color: #aaa;
+  padding: 10px;
+  line-height: 18px;
+  color: #555;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+.legend i {
+	float:  left;
+	width:  18px;
+	height: 18px;
+	margin-right: 8px;
+	opacity: 0.7;
+}
